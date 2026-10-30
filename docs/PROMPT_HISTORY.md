@@ -69,3 +69,26 @@ Attached the YottaFlex AI Candidate Project Submission Guidelines PDF and Candid
 | [add every other tool/session, or write “None” only if true] | | | | |
 
 Keep original wording wherever possible. If a tool cannot export its prompts, document that limitation and retain a reasonable contemporaneous record as the FAQ permits. Do not state that no other prompts were used unless you can verify it.
+
+
+## Follow-up prompts — repository publication and demo conversation — 31 October 2026
+
+The following exact user messages were used in the current project publication/demo conversation. Connector mentions are recorded as connector invocations rather than natural-language prompts.
+
+1. `[$github](app://connector_76869538009648d5b282a4bb21c3d157)`
+2. `unable to download zip packages`
+3. `unable to find or open data exports`
+4. `unable to download`
+5. `[$github](app://connector_76869538009648d5b282a4bb21c3d157)`
+6. `okay`
+7. `zip not found`
+8. `give the full code`
+9. `[$github](app://connector_76869538009648d5b282a4bb21c3d157) run`
+10. `i wan to see the output and live demo`
+11. `so its all set to submit`
+
+These requests led to repository publication support, a read-only Flask dashboard, Render deployment, and a submission-readiness review. The dashboard is AI-assisted and must be disclosed as such.
+
+## Completeness warning
+
+This addendum captures messages visible in the current publication/demo conversation only. It does **not** prove that the file contains every prompt from the earlier project-building conversation, any prior ChatGPT conversation, or any other AI tool/session. Before submission, the candidate must reconcile this file against all relevant conversations and AI tools and add every missing prompt verbatim. Do not mark the prompt history complete until that reconciliation is done.
