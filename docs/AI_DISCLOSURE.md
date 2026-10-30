@@ -35,14 +35,16 @@ AI assistance was also used to debug date, scheduling, data-volume, scorecard-no
 
 The available conversation record does **not** establish exactly which code changes the candidate independently authored, which files the candidate personally reviewed in depth, or whether the candidate independently ran manual test scenarios. This disclosure therefore does not claim personal authorship, comprehensive code review, or manual testing on the candidate's behalf.
 
-**Candidate must complete this factual account before submission:**
+**Candidate's confirmation (31 October 2026):**
 
-- **Files/functions personally reviewed and understood:** list exact paths and briefly state what you can explain.
-- **Independent code changes made by the candidate:** list exact changes; write “No independent code changes” only if that is accurate.
-- **Manual tests personally executed:** give the command/scenario and the actual result; write “None” if you did not personally execute any.
-- **Other AI tools/models or AI sessions used:** list all of them, or write “None” only after checking.
+The candidate responded “no” to the questions about personal review, independent code changes and personally executed tests. Accordingly, this disclosure records:
 
-Do not copy an AI-generated explanation into these fields as evidence of personal understanding. Be ready to explain the generator, relational relationships, stage gates, scheduling/conflict logic, rubric scorecards, offer approvals, anomaly labels, validation and dashboard limitations in your own words.
+- **Files/functions personally reviewed and understood:** None confirmed.
+- **Independent code changes made by the candidate:** None confirmed.
+- **Manual tests personally executed:** None confirmed. The automated checks described below are recorded project/build results, not candidate-run tests.
+- **Other AI tools/models or AI sessions used:** Not answered; this remains unconfirmed and must not be interpreted as “None.”
+
+Do not copy an AI-generated explanation into these fields as evidence of personal understanding. Before a technical walkthrough, the candidate needs to personally study the generator, relational relationships, stage gates, scheduling/conflict logic, rubric scorecards, offer approvals, anomaly labels, validation and dashboard limitations.
 
 ## Automated checks and deployment evidence recorded
 
@@ -72,4 +74,4 @@ All candidate and employee records included in the project are synthetic. The pr
 
 ## Final candidate confirmation required
 
-This file now records the AI assistance and project evidence available from the repository and conversation context. It **cannot truthfully certify** personal code ownership, manual testing, complete personal review, or absence of other AI tools. The candidate must fill in the four factual items under “Candidate-authored work and personal review” before sending a one-time final submission. Do not submit with those facts unverified.
+This file now records the AI assistance and project evidence available from the repository and conversation context, plus the candidate's confirmation that no personal file review, independent code changes or personal test execution are being claimed. The other-AI-tools question remains unanswered, and the prompt history remains incomplete. The candidate should not send the one-time final submission until they have reconciled all AI tools/sessions and completed the prompt record, and are prepared to understand and explain the submitted implementation.
