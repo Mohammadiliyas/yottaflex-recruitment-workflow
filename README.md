@@ -1,19 +1,15 @@
 # YottaFlex Recruitment Workflow
 
-A deterministic, synthetic-data recruitment workflow and validation project for the YottaFlex AI candidate challenge.
+A deterministic synthetic-data recruitment workflow and validation project for the YottaFlex AI candidate challenge.
 
-## Status
+## Project contents
 
-This repository is the public submission home. The complete source package is available from the project owner and should be uploaded before final submission. Do not treat this README-only initialization as a complete code submission.
-
-## Project scope
-
-- Requisition, hiring manager, candidate, application and skill master data
-- Interview panels, interviewer availability, interviews and scorecards
-- Offers, approvals and application event history
-- Deterministic synthetic data generation (seed: 20261022)
-- Separate ground-truth labels for intentional edge cases
-- Validation of IDs, foreign keys, lifecycle rules, dates, scheduling, compensation and reproducibility
+- Deterministic recruitment data generator (seed: 20261022)
+- Workflow and data validation logic
+- Reproducibility checks and summary scripts
+- Unit tests
+- Design notes, data dictionary, validation results, AI disclosure and prompt history
+- CSV and JSON export files, SQL dump and SQLite database in the full data package
 
 ## Full-volume targets
 
@@ -24,28 +20,48 @@ This repository is the public submission home. The complete source package is av
 | Applications | 8,000 |
 | Baseline interviews | 2,000 |
 
-The generated export includes 2,003 interview rows (2,000 baseline plus labelled exception/reschedule rows), 6,000 scorecards, 24,000 rubric items, and 219 offers with approvals.
+Generated outputs include 2,003 interview rows (2,000 baseline plus labelled exception/reschedule rows), 6,000 scorecards, 24,000 rubric items, and 219 offers with approvals.
 
-## Local setup
+## Source package layout
 
-The complete source package contains the executable code and detailed README. After extracting it:
-
-```bash
-cd yottaflex-recruitment
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-python -m src.generator --help
-python -m unittest discover -s tests -v
+```text
+src/
+  generator.py
+  validate.py
+  workflow.py
+scripts/
+  reproducibility_check.py
+  summarize.py
+tests/
+  test_workflow.py
+docs/
+  AI_DISCLOSURE.md
+  DATA_DICTIONARY.md
+  DESIGN.md
+  PROMPT_HISTORY.md
+  VALIDATION_RESULTS.md
+requirements.txt
 ```
 
-Consult the packaged README for exact generation, validation, export and reproducibility commands.
+## Setup
 
-## Data provenance and AI disclosure
+Python 3.10+ is recommended.
 
-All generated candidate and hiring data is synthetic. No external candidate dataset or personal information is used. The full submission package includes the data dictionary, design rationale, validation results, prompt history and AI-use disclosure. Review and update the prompt history to include every prompt submitted to every AI tool before submission.
+```bash
+python -m venv .venv
+# Windows: .venv\\Scripts\\activate
+# macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python -m src.generator --help
+```
 
-## Important
+See the source files and documentation for generation, validation, export and reproducibility commands.
 
-The challenge requires individual understanding and ownership. Review the source, run the tests and generator yourself, and be prepared to explain design decisions, assumptions and limitations.
+## Data and AI disclosure
+
+All generated candidate and hiring data is synthetic. No external candidate dataset or real personal information is used. The submission documentation includes a data dictionary, design rationale, validation results, prompt history and AI-use disclosure. Review these documents and ensure the prompt history reflects all AI prompts actually used before final submission.
+
+## Integrity note
+
+The complete generated data exports (CSV, JSON, SQL and SQLite) are not yet committed to this repository. The full data package must be added separately or regenerated locally from the source. Review the implementation, rerun tests and generator, and be prepared to explain the design decisions, assumptions and limitations.
