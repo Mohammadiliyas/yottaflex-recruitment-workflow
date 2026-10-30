@@ -3,19 +3,54 @@ from __future__ import annotations
 import os
 import sqlite3
 import sys
+import zipfile
 from pathlib import Path
 
-from flask import Flask, abort, render_template_string, request, url_for
+from flask import Flask, render_template_string, request, url_for
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 from workflow import dashboard_metrics  # noqa: E402
 
 app = Flask(__name__)
-DB_PATH = Path(os.environ.get(
-    "YOTTAFLEX_DB",
-    ROOT / "data" / "full" / "yottaflex-full-data-exports" / "recruitment.db",
-))
+
+def resolve_database() -> Path:
+    configured = os.environ.get("YOTTAFLEX_DB")
+    if configured:
+        db_path = Path(configured)
+        if not db_path.exists():
+            raise FileNotFoundError(f"YOTTAFLEX_DB does not exist: {db_path}")
+        return db_path
+
+    # Prefer a locally generated database when developing on a workstation.
+    local_candidates = [
+        ROOT / "data" / "full" / "recruitment.db",
+        ROOT / "data" / "full" / "yottaflex-full-data-exports" / "recruitment.db",
+    ]
+    for candidate in local_candidates:
+        if candidate.exists():
+            return candidate
+
+    # On Render, materialize only the SQLite database from the committed export ZIP.
+    archive = ROOT / "artifacts" / "yottaflex-full-data-exports.zip"
+    member = "yottaflex-full-data-exports/recruitment.db"
+    if not archive.exists():
+        raise FileNotFoundError(f"Full data archive not found: {archive}")
+
+    target_dir = Path(os.environ.get("YOTTAFLEX_DATA_DIR", "/tmp/yottaflex-data"))
+    target_dir.mkdir(parents=True, exist_ok=True)
+    db_path = target_dir / "recruitment.db"
+    if not db_path.exists():
+        with zipfile.ZipFile(archive) as zf:
+            info = zf.getinfo(member)
+            if info.file_size > 100 * 1024 * 1024:
+                raise RuntimeError("Database archive member exceeds the 100 MB safety limit.")
+            with zf.open(info) as src, db_path.open("wb") as dst:
+                while chunk := src.read(1024 * 1024):
+                    dst.write(chunk)
+    return db_path
+
+DB_PATH = resolve_database()
 
 STAGES = ["APPLIED", "SCREENING", "TECHNICAL", "PANEL", "OFFER", "WITHDRAWN"]
 
