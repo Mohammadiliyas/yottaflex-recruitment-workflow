@@ -1,8 +1,0 @@
- .venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-data/generated/
-data/full/
-data/repro_*/
-*.db
