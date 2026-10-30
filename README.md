@@ -13,6 +13,32 @@ A reproducible, locally runnable reference implementation for end-to-end recruit
 - Validation checks for primary keys, foreign keys, dates, pay-band reconciliation, overlap exceptions and labelled cases.
 - Metrics for funnel stages, interviews per application, relevant scorecard average and offer approval rate.
 
+
+## Browser dashboard demo
+
+A read-only Flask dashboard is available at:
+
+**Live demo:** https://yottaflex-recruitment-demo.onrender.com
+
+The dashboard includes:
+- Overview KPIs and recruitment pipeline counts
+- Searchable application records and stage filters
+- Requisition list with role, location, openings and salary bands
+- A register of the seven intentionally labelled workflow edge cases
+
+The web app reads the committed synthetic SQLite export from `artifacts/yottaflex-full-data-exports.zip`. At startup it extracts the database to a temporary directory unless `YOTTAFLEX_DB` points to an existing database file.
+
+Run locally after extracting the full data ZIP into `data/full`:
+
+```bash
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Then open `http://127.0.0.1:5000`.
+
+**Demo limitation:** this is a read-only visualization of synthetic records. It does not provide authentication, recruiter/manager role permissions, create/update operations, or a production ATS workflow.
+
 ## Requirements
 
 - Python 3.10 or newer.
@@ -81,16 +107,16 @@ Run the same command twice into separate folders. Compare row counts and SHA-256
 - At non-full scales, interview counts scale with the eligible candidate pool; inspect `baseline_counts` in `validation_summary.json`.
 - Synthetic scoring and skill profiles are designed for workflow testing, not hiring decisions. Do not use them to rank real people.
 - A manager table represents both hiring managers and interviewers to keep the exercise compact. Candidate, manager, HR and IT/operations responsibilities are represented in workflow relationships and panel roles; actual authentication, system-admin controls and full role-based permissions are not implemented.
-- This is a local data generator and business-rules engine, not a hosted ATS web UI or multi-user service. Review the code, run the tests, inspect the generated outputs and update the AI disclosure with the tools/prompts you used before submission.
+- The deployed browser dashboard is a read-only showcase layered on top of the local data generator and business-rules engine; it is not a production ATS or multi-user service. Review the code, run the tests, inspect the generated outputs and update the AI disclosure with the tools/prompts you used before submission.
 
 ## Submission checklist
 
-- [ ] Repository is public and is a dedicated project repository.
+- [x] Repository is public and dedicated to this project.
 - [ ] README setup/run instructions verified on a clean environment.
 - [x] Full-volume generator run and validation completed in the build workspace.
 - [x] Six unit tests pass.
 - [x] Full-scale fixed-seed repeat and 35-file checksum comparison pass.
-- [ ] Create the dedicated public GitHub repository and push this source package.
+- [x] Create the dedicated public GitHub repository and push the source package and full data ZIP.
 - [ ] Candidate completes personal code review and final AI disclosure.
 - [ ] Prompt history includes every prompt submitted to every AI tool used.
 - [ ] AI disclosure truthfully describes what was AI-assisted and what you personally reviewed/changed/validated.
