@@ -1,1 +1,0 @@
-"""YottaFlex recruitment workflow package."""
