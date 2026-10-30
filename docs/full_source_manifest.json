@@ -1,0 +1,30 @@
+{
+  "generator": "src.generator",
+  "seed": 20261022,
+  "scale": 1.0,
+  "synthetic_only": true,
+  "provenance": "Generated locally from documented deterministic rules; no external candidate or employee data used.",
+  "external_sources": [],
+  "tables": [
+    "hiring_manager",
+    "requisition",
+    "candidate",
+    "application",
+    "skill_requirement",
+    "candidate_skill",
+    "interview_panel",
+    "panel_interviewer",
+    "availability",
+    "interview",
+    "scorecard",
+    "scorecard_item",
+    "offer",
+    "approval",
+    "application_event"
+  ],
+  "ground_truth_files": [
+    "ground_truth.csv",
+    "ground_truth.json"
+  ],
+  "generator_command": "python -m src.generator --output OUTPUT_DIR --seed 20261022 --scale 1.0"
+}

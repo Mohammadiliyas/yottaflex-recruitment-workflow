@@ -1,0 +1,59 @@
+{
+  "seed": 20261022,
+  "scale": 1.0,
+  "requested_counts": {
+    "requisitions": 200,
+    "candidates": 5000,
+    "applications": 8000,
+    "interviews": 2000
+  },
+  "baseline_counts": {
+    "requisitions": 200,
+    "candidates": 5000,
+    "applications": 8000,
+    "interviews": 2000
+  },
+  "volume_targets_met": true,
+  "actual_counts_including_labelled_cases": {
+    "hiring_manager": 100,
+    "requisition": 200,
+    "candidate": 5000,
+    "application": 8000,
+    "skill_requirement": 1010,
+    "candidate_skill": 37540,
+    "interview_panel": 200,
+    "panel_interviewer": 600,
+    "availability": 68800,
+    "interview": 2003,
+    "scorecard": 6000,
+    "scorecard_item": 24000,
+    "offer": 219,
+    "approval": 219,
+    "application_event": 17782
+  },
+  "ground_truth_count": 7,
+  "validation": {
+    "foreign_key_violations": [],
+    "duplicate_primary_keys": [],
+    "invalid_dates": 0,
+    "invalid_interview_ranges": 0,
+    "application_id_mismatches": 0,
+    "application_latest_event_mismatches": 0,
+    "invalid_stage_transitions": 0,
+    "unlabelled_panel_requisition_mismatches": 0,
+    "unavailable_panel_bookings": 0,
+    "scorecard_derived_score_mismatches": 0,
+    "approval_status_mismatches": 0,
+    "ground_truth_missing_targets": 0,
+    "unlabelled_issue_records": 0,
+    "unlabelled_non_panel_reviewers": 0,
+    "offer_band_violations": 0,
+    "unlabelled_overlap_count": 0,
+    "ground_truth_labels": 7,
+    "unlabelled_withdrawn_schedules": 0,
+    "unlabelled_irrelevant_scorecards": 0,
+    "unlabelled_incomplete_scorecards": 0,
+    "unlabelled_gate_failures": 0,
+    "pass": true
+  }
+}
