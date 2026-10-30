@@ -1,10 +1,24 @@
 # AI prompt history
 
-This file records the prompts available from this project-building session. The YottaFlex FAQ asks candidates to include **all prompts submitted to every AI tool**. This log cannot prove what was entered in other tools or previous sessions. Add those verbatim before submission. AI responses are optional under the FAQ.
+**Project:** YottaFlex recruitment workflow and synthetic-data generator  
+**Last updated:** 31 October 2026  
+**Status:** Known prompt record; **not certified complete**
+
+The YottaFlex FAQ requests the prompts submitted to every AI tool. This file preserves the assignment/build prompt text and the user messages visible in the project-publication conversation. It does not provide access to every message in older conversations or to sessions in other AI products. Do not describe this log as exhaustive until you compare it against the original chats and every AI tool you used.
+
+## AI tools and connected services identified
+
+- **ChatGPT (GPT-6):** extensive project planning, implementation, debugging, documentation and submission-preparation assistance.
+- **GitHub connector:** repository inspection and file publication/updates.
+- **Render connector:** dashboard deployment.
+
+Other AI tools/models are not confirmed by the available record. Add their exact prompts and model/tool names below if used. Do not write “None” unless you have checked.
 
 ## ChatGPT — GPT-6 — 30 October 2026
 
-### Prompt 1 — assignment specification (content reproduced; Markdown/line wrapping normalized)
+### Prompt 1 — assignment/build specification
+
+The following is the assignment/build specification preserved in the project record. Markdown/line wrapping has been normalized; the wording is retained as recorded.
 
 > ## Problem statement
 >
@@ -51,29 +65,25 @@ This file records the prompts available from this project-building session. The 
 > - Pushed your code to a public GitHub repository
 > - Added a README explaining how to run it
 > - Included any tests the problem asks for
->
-> [GitHub connector was explicitly invoked in this conversation.]
 
-### Prompt 2 — submission documents supplied as context
+### Prompt 2 — assignment reference documents
 
-Attached the YottaFlex AI Candidate Project Submission Guidelines PDF and Candidate Project FAQ PDF for this task. (Attachments are source material rather than a separately typed natural-language prompt.)
+The candidate supplied the following source documents in the project conversation for review:
 
-### Prompt 3 — GitHub connector action
+- `YottaFlex AI Candidate Project Submission Guidelines.pdf`
+- `YottaFlex AI Candidate Project-FAQ.pdf`
 
-`[@GitHub](plugin://github@openai-curated-remote)` — request to use the connected GitHub capability for the project.
+These are attachments/context supplied to ChatGPT, not separately typed prompts.
 
-## Other AI tools / sessions
+### Prompt 3 — GitHub connector invocation
 
-| Date/time + timezone | AI tool/model | Exact prompt(s) | Files/code affected | What you personally reviewed or changed |
-|---|---|---|---|---|
-| [add every other tool/session, or write “None” only if true] | | | | |
+`[@GitHub](plugin://github@openai-curated-remote)`
 
-Keep original wording wherever possible. If a tool cannot export its prompts, document that limitation and retain a reasonable contemporaneous record as the FAQ permits. Do not state that no other prompts were used unless you can verify it.
+The connector was invoked to use the connected GitHub capability for the project.
 
+## Follow-up prompts — publication, deployment and submission-preparation conversation — 31 October 2026
 
-## Follow-up prompts — repository publication and demo conversation — 31 October 2026
-
-The following exact user messages were used in the current project publication/demo conversation. Connector mentions are recorded as connector invocations rather than natural-language prompts.
+The following exact user messages are visible in the project-publication conversation. Connector invocations are recorded as invocations rather than translated into natural-language instructions.
 
 1. `[$github](app://connector_76869538009648d5b282a4bb21c3d157)`
 2. `unable to download zip packages`
@@ -87,8 +97,37 @@ The following exact user messages were used in the current project publication/d
 10. `i wan to see the output and live demo`
 11. `so its all set to submit`
 
-These requests led to repository publication support, a read-only Flask dashboard, Render deployment, and a submission-readiness review. The dashboard is AI-assisted and must be disclosed as such.
+The conversation also included the following one-time submission form text, supplied by the candidate:
 
-## Completeness warning
+> Submit your work
+>
+> You can submit once, so check everything before you do.
+>
+> GitHub repository URL*
+>
+> The repository must be public so we can review it.
+>
+> Your submission is final once sent.
 
-This addendum captures messages visible in the current publication/demo conversation only. It does **not** prove that the file contains every prompt from the earlier project-building conversation, any prior ChatGPT conversation, or any other AI tool/session. Before submission, the candidate must reconcile this file against all relevant conversations and AI tools and add every missing prompt verbatim. Do not mark the prompt history complete until that reconciliation is done.
+The latest follow-up request concerning these disclosure files was:
+
+12. `finish them`
+
+## Earlier-session prompts not fully recoverable from this record
+
+An account-level conversation summary exposes a fragment from an earlier conversation:
+
+- `make a complete app using this information using all the` — visible fragment only; the original message is truncated in the available summary.
+- `yeah do it` — visible in that same summarized conversation.
+
+These fragments are not a substitute for the original message history and are not represented as a complete or verbatim list. Retrieve the full earlier conversation and add every relevant user prompt and AI-tool invocation, including any prompt embedded in an attachment or sent to another AI service.
+
+## Other AI tools / sessions — candidate must reconcile
+
+| Date/time + timezone | Tool and exact model | Exact prompt(s) | Work/files affected |
+|---|---|---|---|
+| [Add each additional AI session, or write “None” only after verifying.] | | | |
+
+## Completeness and submission note
+
+This is a consolidated record of the prompt text and message fragments presently available to the project record. **It is not an exhaustive prompt history.** The candidate must compare it with the complete earlier ChatGPT conversation(s), inspect any prompts supplied as text/file attachments, and review every other AI tool/session used. Add the missing prompts verbatim and preserve the exact tool/model names. Do not claim the history is complete until that reconciliation is finished.
