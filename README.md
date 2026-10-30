@@ -1,126 +1,111 @@
 # YottaFlex AI — Recruitment Workflow & Synthetic Data Generator
 
-A reproducible, locally runnable reference implementation for end-to-end recruitment operations: approved requisitions, candidate profiles and applications, stage gates, interviewer availability, conflict-aware panel scheduling, rubric scorecards, compensation-band offers, approvals, audit events and exception labels.
+A reproducible recruitment workflow reference implementation covering requisitions, synthetic candidate profiles and applications, stage gates, interviewer availability, conflict-aware scheduling, rubric scorecards, compensation-band offers, approvals, audit events and labelled exceptions.
 
-> **Data notice:** All included/generated candidate and employee records are synthetic. No external candidate dataset or personal information is used. `ground_truth.csv/json` is a separate label set and must not be joined into model features used to detect anomalies.
+> **Data notice:** All candidate and employee records are synthetic. The separate ground_truth table/file set contains known edge-case labels and must not be joined into model input features for anomaly detection.
 
 ## What is implemented
 
-- Relational SQLite model for HiringManager, Requisition, Candidate, Application, SkillRequirement, InterviewPanel, Availability, Interview, Scorecard, Offer and Approval, plus candidate skills, panel membership, normalized scorecard rubric items, application event history and ground truth.
-- Deterministic IDs, fixed seed (`20261022`), parameterized generation and CSV + JSON + SQLite exports.
-- Business rules for stage transitions, mandatory review gate, interviewer availability/conflicts, terminal candidate states, offer salary bands and approval decisions.
-- Explicit exception examples: missing required review, interviewer double-booking, out-of-band offer, withdrawn candidate still scheduled, irrelevant scorecard criterion. A reschedule record points to the original interview instead of overwriting it.
-- Validation checks for primary keys, foreign keys, dates, pay-band reconciliation, overlap exceptions and labelled cases.
-- Metrics for funnel stages, interviews per application, relevant scorecard average and offer approval rate.
-
+- Relational SQLite model for recruitment master, transaction and event entities.
+- Deterministic data generation with fixed seed 20261022; CSV, JSON, SQL and SQLite exports.
+- Business rules for stage transitions, review gates, interviewer availability/conflicts, terminal states, salary bands and approvals.
+- Explicit labelled exception examples and a separate ground-truth register.
+- Data validation, unit tests and reproducibility utilities.
+- A read-only Flask dashboard for viewing KPIs, applications, requisitions and labelled anomalies.
 
 ## Browser dashboard demo
-
-A read-only Flask dashboard is available at:
 
 **Live demo:** https://yottaflex-recruitment-demo.onrender.com
 
 The dashboard includes:
-- Overview KPIs and recruitment pipeline counts
+- Overview KPIs and application pipeline counts
 - Searchable application records and stage filters
 - Requisition list with role, location, openings and salary bands
 - A register of the seven intentionally labelled workflow edge cases
 
-The web app reads the committed synthetic SQLite export from `artifacts/yottaflex-full-data-exports.zip`. At startup it extracts the database to a temporary directory unless `YOTTAFLEX_DB` points to an existing database file.
+The web app reads the committed SQLite export from artifacts/yottaflex-full-data-exports.zip. At startup it extracts the database to a temporary directory unless YOTTAFLEX_DB points to an existing database file.
 
-Run locally after extracting the full data ZIP into `data/full`:
+**Demo limitation:** this is a read-only visualization over synthetic records. It does not provide authentication, recruiter/manager role permissions, create/update operations or a production ATS workflow.
 
-```bash
-python -m pip install -r requirements.txt
-python app.py
-```
-
-Then open `http://127.0.0.1:5000`.
-
-**Demo limitation:** this is a read-only visualization of synthetic records. It does not provide authentication, recruiter/manager role permissions, create/update operations, or a production ATS workflow.
-
-## Requirements
+## Requirements and local setup
 
 - Python 3.10 or newer.
-- No external services, API keys or paid dependencies.
-
-## Quick start
+- Python dependencies are listed in requirements.txt (Flask and Gunicorn for the dashboard).
 
 ```bash
 python -m venv .venv
 # Windows PowerShell: .venv\Scripts\Activate.ps1
 # macOS/Linux: source .venv/bin/activate
 python -m pip install -r requirements.txt
-python -m src.generator --output data/generated --seed 20261022 --scale 0.1
-python -m src.validate data/generated/recruitment.db
-python scripts/summarize.py data/generated/recruitment.db
 python -m unittest discover -s tests -v
-python scripts/reproducibility_check.py --scale 0.02
 ```
 
-To generate the requested full-volume dataset:
+To run the dashboard locally, extract artifacts/yottaflex-full-data-exports.zip into data/full, then run:
+
+```bash
+python app.py
+```
+
+Open http://127.0.0.1:5000.
+
+To regenerate the full dataset from source:
 
 ```bash
 python -m src.generator --output data/full --seed 20261022 --scale 1.0
 python -m src.validate data/full/recruitment.db
 ```
 
-The scale parameter applies the same generator to all master and dependent tables. Scale `1.0` targets 200 requisitions, 5,000 candidates, 8,000 applications and 2,000 interviews; scale `0.1` is a quicker smoke-test dataset. The verified full-volume run with seed `20261022` met all four targets exactly. The physical `interview` table contains 2,003 rows because it also retains two labelled exception interviews and one rescheduled interview. The full run also generated 6,000 scorecards, 24,000 rubric items and 219 offers/approvals. `validation_summary.json` reports target baseline counts separately from all physical row counts. See `docs/VALIDATION_RESULTS.md` for detailed counts, metrics, exception coverage, and two-run full-scale checksum comparison.
+For a faster smoke-test dataset use --scale 0.1. See the source code and docs/VALIDATION_RESULTS.md for detailed entity counts, validation results and reproducibility evidence.
+
+## Full-volume data exports
+
+The repository includes artifacts/yottaflex-full-data-exports.zip, containing CSV and JSON table exports, a SQLite database, SQL dump, manifest, validation summary and checksums. Extract the archive to inspect individual datasets. Keep ground_truth separate from operational model features.
 
 ## Project structure
 
 ```text
+app.py                 read-only Flask dashboard
 src/
-  generator.py       deterministic synthetic data + schema + exports + validation
-  workflow.py        stage, scheduling and offer/approval rules + metrics
-  validate.py        command-line integrity and exception validation
- tests/
-  test_workflow.py   core rule and data-model tests
- docs/
-  DATA_DICTIONARY.md field definitions and relationships
-  DESIGN.md          assumptions, lifecycle, metrics and limitations
-  AI_DISCLOSURE.md   AI-use disclosure and prompt-history procedure
-  PROMPT_HISTORY.md  prompts recorded for this project
-  VALIDATION_RESULTS.md full-scale test and reproducibility evidence
- data/               generated outputs (not committed by default)
+  generator.py         deterministic synthetic data + schema + exports + validation
+  workflow.py          stage, scheduling and offer/approval rules + metrics
+  validate.py          command-line integrity and exception validation
+scripts/
+  reproducibility_check.py
+  summarize.py
+tests/
+  test_workflow.py
+docs/
+  DATA_DICTIONARY.md
+  DESIGN.md
+  AI_DISCLOSURE.md
+  PROMPT_HISTORY.md
+  VALIDATION_RESULTS.md
+artifacts/
+  yottaflex-full-data-exports.zip
 ```
 
-## Data exports
+## Design decisions and limitations
 
-The generator writes one `.csv` and one `.json` per operational table, plus `recruitment.db`, a portable `recruitment.sql` seed dump, `manifest.json`, `validation_summary.json`, `checksums.sha256`, and the separate `ground_truth.csv/json`. Do not put `ground_truth` into operational model features. Do not commit large full-volume exports unless specifically requested; generator and smaller smoke-test evidence are sufficient to reproduce them.
+1. SQLite and Python keep generation and validation easy to reproduce locally.
+2. State snapshots and application event history are separate so transitions remain traceable.
+3. Baseline records are generated before labelled edge cases are injected.
+4. The validator separates expected labelled exceptions from unlabelled integrity failures.
+5. Scheduling checks interviewer panel membership, availability and overlapping intervals.
 
-## Reproducibility
-
-Run the same command twice into separate folders. Compare row counts and SHA-256 checksums of CSV/JSON/SQL outputs and metadata. `scripts/reproducibility_check.py` automates this. The seed controls random choices; output ordering is deterministic.
-
-## Key design decisions
-
-1. SQLite + Python standard library keeps the project fully local and easy to audit.
-2. Source records and event records are separated. State snapshots are convenient for reads; application transitions are also appended to `application_event`.
-3. Anomalies are injected only after baseline records are valid and are explicitly labelled via `issue_type` and `ground_truth`.
-4. A validator distinguishes expected, labelled exception records from unlabelled data-integrity failures.
-5. Scheduling uses interviewer panel membership, availability windows and overlapping interval checks before an operational booking is inserted.
-
-## Known limitations to review
-
-- The generator creates a relational data and rules-engine demonstration, not a production ATS or multi-user web interface.
-- At non-full scales, interview counts scale with the eligible candidate pool; inspect `baseline_counts` in `validation_summary.json`.
-- Synthetic scoring and skill profiles are designed for workflow testing, not hiring decisions. Do not use them to rank real people.
-- A manager table represents both hiring managers and interviewers to keep the exercise compact. Candidate, manager, HR and IT/operations responsibilities are represented in workflow relationships and panel roles; actual authentication, system-admin controls and full role-based permissions are not implemented.
-- The deployed browser dashboard is a read-only showcase layered on top of the local data generator and business-rules engine; it is not a production ATS or multi-user service. Review the code, run the tests, inspect the generated outputs and update the AI disclosure with the tools/prompts you used before submission.
+The project demonstrates synthetic workflow data and business rules, not a production multi-user ATS. Synthetic skill and score data are for workflow testing only and must not be used to rank real people. Authentication, system-administrator controls and complete role-based permissions are not implemented.
 
 ## Submission checklist
 
-- [x] Repository is public and dedicated to this project.
-- [ ] README setup/run instructions verified on a clean environment.
-- [x] Full-volume generator run and validation completed in the build workspace.
+- [x] Public, dedicated GitHub repository with source, tests, documentation and full data ZIP.
+- [x] Full-volume generator output and validation evidence included.
 - [x] Six unit tests pass.
-- [x] Full-scale fixed-seed repeat and 35-file checksum comparison pass.
-- [x] Create the dedicated public GitHub repository and push the source package and full data ZIP.
-- [ ] Candidate completes personal code review and final AI disclosure.
-- [ ] Prompt history includes every prompt submitted to every AI tool used.
-- [ ] AI disclosure truthfully describes what was AI-assisted and what you personally reviewed/changed/validated.
-- [ ] No secrets, real candidate details or unauthorized proprietary content committed.
-- [ ] Final repository link is submitted from the same recruitment email address used in the process.
+- [x] Hosted read-only dashboard deployed.
+- [ ] Candidate has personally reviewed and understood the implementation.
+- [ ] Prompt history includes every prompt submitted to every AI tool/session.
+- [ ] Candidate has completed the AI disclosure with truthful personal-review and manual-test details.
+- [ ] Candidate has checked for secrets, real personal data and unauthorized proprietary content.
+- [ ] Candidate has verified the assignment deadline and submission method, and submitted the repository link from the required recruitment email address.
 
-See `docs/AI_DISCLOSURE.md` and `docs/PROMPT_HISTORY.md`. YottaFlex's attached submission guideline specifies a 72-hour window, public repository, prompt history, and a walkthrough of assumptions, decisions, trade-offs, tests and limitations. Its FAQ says individual work is required, hosted demo/automated tests are not mandatory, and incomplete requirements must be explicitly disclosed.
+YottaFlex's assignment materials specify a 72-hour window, a public repository, prompt history and a walkthrough of assumptions, decisions, trade-offs, tests and limitations. The FAQ states that individual work is required, a hosted demo/automated tests are not mandatory, and incomplete requirements must be explicitly disclosed. Review the original PDFs and confirm the applicable deadline and delivery channel.
+
+See docs/AI_DISCLOSURE.md, docs/PROMPT_HISTORY.md and docs/VALIDATION_RESULTS.md before submission.
