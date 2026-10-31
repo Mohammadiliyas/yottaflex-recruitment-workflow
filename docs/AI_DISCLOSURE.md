@@ -60,11 +60,11 @@ python -m unittest discover -s tests -v
 
 I retrieved the source and data archives from the YottaFlex Library folder and verified their Git object IDs against the files in the public repository. The five tested source files (src/generator.py, src/workflow.py, src/validate.py, tests/test_workflow.py and scripts/reproducibility_check.py) matched the corresponding blobs on main. The full data-export ZIP also matched the repository artifact blob.
 
-The following commands were executed in the assistant's verification environment against those repository-matched files and the committed full-volume database:
+The source archive was extracted to `/mnt/data/yottaflex-verify/source/yottaflex-recruitment`; the full-volume export archive was extracted to `/mnt/data/yottaflex-verify/data/yottaflex-full-data-exports`. Git blob IDs for each tested source file matched the files on GitHub `main`, and the export ZIP matched the committed GitHub artifact. The following commands were executed in the assistant's verification environment from the source directory:
 
 ```bash
 python -m unittest discover -s tests -v
-python -m src.validate /path/to/recruitment.db
+python -m src.validate /mnt/data/yottaflex-verify/data/yottaflex-full-data-exports/recruitment.db
 python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
 ```
 
