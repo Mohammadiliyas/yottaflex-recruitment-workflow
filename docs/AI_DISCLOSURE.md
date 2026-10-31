@@ -12,7 +12,7 @@
 | ChatGPT (GPT-6) | Used extensively to plan and draft the architecture, Python/SQLite schema, deterministic synthetic-data generator, workflow rules, validation code, unit tests, scripts, documentation and debugging changes. It also assisted with reviewing generated database outputs and preparing the dashboard. |
 | GitHub connector | Used to inspect the repository and publish/update source files, the data archive and documentation. |
 | Render connector | Used to create and deploy the read-only Flask dashboard from the GitHub repository. |
-| Other AI tools/models | **Not confirmed by the available project record.** The candidate must list every additional tool/model used, or state “None” only after checking all relevant sessions. |
+| Other AI tools/models | **None.** The candidate confirmed on 31 October 2026 that no AI tool other than ChatGPT was used for this assignment. |
 
 The GitHub and Render connectors are recorded as connected services used in the workflow; they are not being represented as additional generative-AI models.
 
@@ -42,7 +42,7 @@ The candidate responded “no” to the questions about personal review, indepen
 - **Files/functions personally reviewed and understood:** None confirmed.
 - **Independent code changes made by the candidate:** None confirmed.
 - **Manual tests personally executed:** None confirmed. The automated checks described below are recorded project/build results, not candidate-run tests.
-- **Other AI tools/models or AI sessions used:** Not answered; this remains unconfirmed and must not be interpreted as “None.”
+- **Other AI tools/models used:** None; the candidate confirmed that ChatGPT was the only AI tool used. The GitHub and Render connectors are recorded separately as connected services.
 
 Do not copy an AI-generated explanation into these fields as evidence of personal understanding. Before a technical walkthrough, the candidate needs to personally study the generator, relational relationships, stage gates, scheduling/conflict logic, rubric scorecards, offer approvals, anomaly labels, validation and dashboard limitations.
 
@@ -91,4 +91,4 @@ All candidate and employee records included in the project are synthetic. The pr
 
 ## Final candidate confirmation required
 
-This file now records the AI assistance and project evidence available from the repository and conversation context, plus the candidate's confirmation that no personal file review, independent code changes or personal test execution are being claimed. The other-AI-tools question remains unanswered, and the prompt history remains incomplete. The candidate should not send the one-time final submission until they have reconciled all AI tools/sessions and completed the prompt record, and are prepared to understand and explain the submitted implementation.
+This file now records the AI assistance and project evidence available from the repository and conversation context, plus the candidate's confirmation that no personal file review, independent code changes or personal test execution are being claimed. The candidate has confirmed that ChatGPT was the only AI tool used. The exact full ChatGPT prompt history still requires reconciliation because the complete original YottaFlex transcript is not available in the accessible file record. The candidate should not send the one-time final submission until they have reconciled all AI tools/sessions and completed the prompt record, and are prepared to understand and explain the submitted implementation.
