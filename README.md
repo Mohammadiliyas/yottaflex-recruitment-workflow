@@ -92,7 +92,7 @@ artifacts/
 4. The validator separates expected labelled exceptions from unlabelled integrity failures.
 5. Scheduling checks interviewer panel membership, availability and overlapping intervals.
 
-**Implementation caveats:** `src/workflow.py` currently takes `required_review_complete` as a caller-supplied Boolean; it does not query persisted review evidence before allowing a stage transition. Also, `approve_offer()` changes an offer to `APPROVED` after a single approved decision; it does not enforce two distinct role-based approvals (for example, hiring manager and HR partner). These are known gaps between the intended policy and the current implementation.
+**Implementation caveats:** `transition_application()` takes `required_review_complete` as a caller-supplied Boolean; it does not query persisted review evidence before allowing a stage transition. `schedule_interview()` checks availability and conflicts but does not confirm that the panel belongs to the application's requisition. `approve_offer()` changes an offer to `APPROVED` after a single approved decision; it does not enforce two distinct role-based approvals (for example, hiring manager and HR partner). These are known gaps between the intended policy and the current implementation.
 
 The project demonstrates synthetic workflow data and business rules, not a production multi-user ATS. Synthetic skill and score data are for workflow testing only and must not be used to rank real people. Authentication, system-administrator controls and complete role-based permissions are not implemented.
 
