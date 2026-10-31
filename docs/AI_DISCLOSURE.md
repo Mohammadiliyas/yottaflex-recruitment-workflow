@@ -83,6 +83,8 @@ All candidate and employee records included in the project are synthetic. The pr
 
 ## Known limitations
 
+- In `src/workflow.py`, `transition_application()` accepts `required_review_complete` as a caller-supplied Boolean. It does not independently verify the review evidence from the database; a caller could pass `True` without a linked review record.
+- In `src/workflow.py`, `approve_offer()` updates the offer to `APPROVED` after one approved decision. It does not enforce two distinct approvals, although the design notes describe separate hiring-manager and HR-partner approvals. This is a documented design/implementation gap.
 - The hosted Flask dashboard is read-only.
 - It does not implement authentication, role-based access control, recruiter/manager permissions or create/update workflows.
 - It is a synthetic-data workflow reference implementation, not a production ATS.
