@@ -92,6 +92,8 @@ artifacts/
 4. The validator separates expected labelled exceptions from unlabelled integrity failures.
 5. Scheduling checks interviewer panel membership, availability and overlapping intervals.
 
+**Implementation caveats:** `src/workflow.py` currently takes `required_review_complete` as a caller-supplied Boolean; it does not query persisted review evidence before allowing a stage transition. Also, `approve_offer()` changes an offer to `APPROVED` after a single approved decision; it does not enforce two distinct role-based approvals (for example, hiring manager and HR partner). These are known gaps between the intended policy and the current implementation.
+
 The project demonstrates synthetic workflow data and business rules, not a production multi-user ATS. Synthetic skill and score data are for workflow testing only and must not be used to rank real people. Authentication, system-administrator controls and complete role-based permissions are not implemented.
 
 ## Submission checklist
@@ -102,7 +104,7 @@ The project demonstrates synthetic workflow data and business rules, not a produ
 - [x] Hosted read-only dashboard deployed.
 - [ ] Candidate has personally reviewed and understood the implementation.
 - [ ] Prompt history includes every prompt submitted to every AI tool/session.
-- [ ] Candidate has completed the AI disclosure with truthful personal-review and manual-test details.
+- [x] AI assistance, personal-review status and candidate test-execution status are disclosed in `docs/AI_DISCLOSURE.md`.
 - [ ] Candidate has checked for secrets, real personal data and unauthorized proprietary content.
 - [ ] Candidate has verified the assignment deadline and submission method, and submitted the repository link from the required recruitment email address.
 
