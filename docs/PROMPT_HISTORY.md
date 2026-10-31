@@ -12,7 +12,7 @@ The YottaFlex FAQ requests the prompts submitted to every AI tool. This file pre
 - **GitHub connector:** repository inspection and file publication/updates.
 - **Render connector:** dashboard deployment.
 
-Other AI tools/models are not confirmed by the available record. Add their exact prompts and model/tool names below if used. Do not write “None” unless you have checked.
+The candidate confirmed on 31 October 2026 that ChatGPT was the only AI tool used for this assignment. No prompts to other AI tools need to be added. GitHub and Render connectors were used as connected services and are recorded separately; they are not being represented as additional generative-AI tools.
 
 ## ChatGPT — GPT-6 — 30 October 2026
 
@@ -127,8 +127,8 @@ This cross-check separates the known YottaFlex material from unrelated project p
 
 | Date/time + timezone | Tool and exact model | Exact prompt(s) | Work/files affected |
 |---|---|---|---|
-| [Add each additional AI session, or write “None” only after verifying.] | | | |
+| None — candidate confirmed ChatGPT was the only AI tool used. | — | — | — |
 
 ## Completeness and submission note
 
-This is a consolidated record of the YottaFlex prompt text and messages presently available from the project record, including the Library source cross-check. **It is still not an exhaustive prompt history.** The complete original YottaFlex ChatGPT transcript is not available in the accessible file record, and use of other AI tools/models has not been confirmed. The candidate must inspect the complete original YottaFlex conversation and every other AI tool/session used, then add any missing prompts verbatim and preserve exact tool/model names. Do not claim the history is complete until that reconciliation is finished.
+This is a consolidated record of the YottaFlex prompt text and messages presently available from the project record, including the Library source cross-check. **It is still not an exhaustive prompt history.** The candidate has confirmed that no AI tool other than ChatGPT was used. However, the complete original YottaFlex ChatGPT transcript is not available in the accessible file record. The candidate must compare this log with the full original YottaFlex ChatGPT conversation and add any missing user prompts and ChatGPT connector invocations verbatim before claiming the prompt history is exhaustive. Do not claim the history is complete until that reconciliation is finished.
