@@ -112,8 +112,10 @@ The conversation also included the following one-time submission form text, supp
 The latest follow-up request concerning these disclosure files was:
 
 12. `finish them`
-13. `no`
-14. `lets goo`
+13. `no` (response to the candidate-review/testing questions; the candidate did not confirm personal review, independent code changes or tests personally run)
+14. `we will do it tomorrow good night.`
+15. `lets goo`
+16. `no` (confirmation that ChatGPT was the only AI tool used for the YottaFlex assignment)
 
 ## Library source cross-check — 31 October 2026
 
