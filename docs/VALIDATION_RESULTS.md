@@ -90,3 +90,29 @@ python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
 ```
 
 The full-scale repeat was run independently twice and its two generated folders were compared file-by-file; the commands above include the reusable small-scale reproducibility helper. The full-scale comparison results are summarized in this file.
+
+## Repository-matched assistant verification — 31 October 2026
+
+The source and export ZIPs were retrieved from the project Library folder and checked against the public GitHub repository. Git blob IDs matched for the tested source files and the full export archive at the time of verification. This ties the following checks to the source and dataset artifacts committed to the repository.
+
+Commands executed in the assistant verification environment:
+
+```bash
+python -m unittest discover -s tests -v
+python -m src.validate /path/to/recruitment.db
+python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
+```
+
+Observed results:
+
+| Check | Result |
+|---|---|
+| Unit test suite | 6 passed |
+| Validator on committed full-volume SQLite export | pass: true; 7 ground-truth labels; zero reported configured unlabelled integrity failures |
+| Reproducibility helper, seed 20261022, scale 0.02 | All 35 generated CSV, JSON, SQL and metadata files identical across both runs |
+
+The small-scale reproducibility check above is a fresh assistant-side run. The earlier full-scale two-run comparison remains the result documented in the Reproducibility section; it was not repeated on 31 October.
+
+The dashboard code (app.py) was not covered by the local unit-test run. Render service logs recorded successful HTTP 200 responses for /, /applications, /requisitions and /anomalies after deployment.
+
+**Attribution:** these commands were run by the AI assistant in its verification environment. They were not run personally by the candidate. This section must not be represented as candidate-executed testing.
