@@ -116,6 +116,9 @@ The latest follow-up request concerning these disclosure files was:
 14. `we will do it tomorrow good night.`
 15. `lets goo`
 16. `no` (confirmation that ChatGPT was the only AI tool used for the YottaFlex assignment)
+17. `My answer to Lesson 1: A requisition is option b. Explain whether you understand it correctly and continue.`
+18. `so should i submit it`
+19. `we just got left 6 hours`
 
 ## Library source cross-check — 31 October 2026
 
