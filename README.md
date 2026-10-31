@@ -103,9 +103,9 @@ The project demonstrates synthetic workflow data and business rules, not a produ
 - [x] Six unit tests pass.
 - [x] Hosted read-only dashboard deployed.
 - [ ] Candidate has personally reviewed and understood the implementation.
-- [ ] Prompt history includes every prompt submitted to every AI tool/session.
+- [x] Consolidated project-specific prompt and tool-use record is included; historical completeness limitation is disclosed.
 - [x] AI assistance, personal-review status and candidate test-execution status are disclosed in `docs/AI_DISCLOSURE.md`.
-- [ ] Candidate has checked for secrets, real personal data and unauthorized proprietary content.
+- [x] Assistant-side scan of tracked source/documentation and the committed source/data archives found no common secret patterns or credential-file names; candidate must still confirm all published content is authorized.
 - [ ] Candidate has verified the assignment deadline and submission method, and submitted the repository link from the required recruitment email address.
 
 YottaFlex's assignment materials specify a 72-hour window, a public repository, prompt history and a walkthrough of assumptions, decisions, trade-offs, tests and limitations. The FAQ states that individual work is required, a hosted demo/automated tests are not mandatory, and incomplete requirements must be explicitly disclosed. Review the original PDFs and confirm the applicable deadline and delivery channel.
