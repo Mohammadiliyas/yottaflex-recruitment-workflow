@@ -56,9 +56,26 @@ That validation report records zero configured unlabelled integrity failures and
 python -m unittest discover -s tests -v
 ```
 
-The project build record also reports six unit tests passing and a validator pass. These are **recorded project/build results**, not a statement that the candidate personally ran those checks. They were not rerun as part of this documentation update.
+### Assistant-side verification run — 31 October 2026
 
-The Render deployment was reported live, and service logs recorded successful HTTP 200 responses for the dashboard and its application, requisition and anomaly endpoints. This is deployment evidence, not proof that the app is a production ATS.
+I retrieved the source and data archives from the YottaFlex Library folder and verified their Git object IDs against the files in the public repository. The five tested source files (src/generator.py, src/workflow.py, src/validate.py, tests/test_workflow.py and scripts/reproducibility_check.py) matched the corresponding blobs on main. The full data-export ZIP also matched the repository artifact blob.
+
+The following commands were executed in the assistant's verification environment against those repository-matched files and the committed full-volume database:
+
+```bash
+python -m unittest discover -s tests -v
+python -m src.validate /path/to/recruitment.db
+python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
+```
+
+Results:
+- **Unit tests:** 6 passed.
+- **Full-volume database validator:** pass: true; 7 ground-truth labels; zero reported primary-key duplicates, foreign-key violations, invalid date ranges, unlabelled stage-gate failures, unlabelled scheduling overlaps, offer-band violations or other configured unlabelled integrity failures.
+- **Reproducibility helper at scale 0.02:** all 35 CSV, JSON, SQL and metadata outputs matched across the two generated runs.
+
+This assistant-side run did **not** repeat the full-scale two-run reproducibility comparison; the full-scale comparison remains the previously recorded result in docs/VALIDATION_RESULTS.md. It also did not locally test the dashboard routes. Render logs from the deployment recorded successful HTTP 200 responses for /, /applications, /requisitions and /anomalies.
+
+These are AI/assistant-run verification results, not tests personally executed by the candidate. The candidate's earlier confirmation that no personal test execution is being claimed remains unchanged.
 
 ## Data provenance and privacy
 
