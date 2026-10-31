@@ -119,6 +119,7 @@ The latest follow-up request concerning these disclosure files was:
 17. `My answer to Lesson 1: A requisition is option b. Explain whether you understand it correctly and continue.`
 18. `so should i submit it`
 19. `we just got left 6 hours`
+20. `My answer to Lesson 2 is option b. Check my answer and continue to Lesson 3.`
 
 ## Library source cross-check — 31 October 2026
 
