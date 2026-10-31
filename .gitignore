@@ -6,3 +6,6 @@ data/generated/
 data/full/
 data/repro_*/
 *.db
+.env
+.env.*
+!.env.example
