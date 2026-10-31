@@ -112,15 +112,16 @@ The conversation also included the following one-time submission form text, supp
 The latest follow-up request concerning these disclosure files was:
 
 12. `finish them`
+13. `no`
+14. `lets goo`
 
-## Earlier-session prompts not fully recoverable from this record
+## Library source cross-check — 31 October 2026
 
-An account-level conversation summary exposes a fragment from an earlier conversation:
+- A Library file named `ai_prompt_history.md` was found. Its recorded initial YottaFlex assignment/build brief corroborates the original brief reproduced as Prompt 1; it is a duplicate record of that brief, not a distinct additional prompt.
+- Two files named `Pasted text.txt` and `Pasted text(1).txt` were inspected. They contain an ONDC multi-vendor e-commerce project blueprint, not the YottaFlex recruitment-workflow assignment, so they are excluded from this YottaFlex prompt history.
+- Two earlier message fragments visible in a separate account-level conversation summary (`make a complete app using this information using all the` and `yeah do it`) belong to that unrelated ONDC project conversation, not this YottaFlex assignment; they are therefore not listed as YottaFlex prompts.
 
-- `make a complete app using this information using all the` — visible fragment only; the original message is truncated in the available summary.
-- `yeah do it` — visible in that same summarized conversation.
-
-These fragments are not a substitute for the original message history and are not represented as a complete or verbatim list. Retrieve the full earlier conversation and add every relevant user prompt and AI-tool invocation, including any prompt embedded in an attachment or sent to another AI service.
+This cross-check separates the known YottaFlex material from unrelated project prompts. It does not recover the complete original YottaFlex chat transcript.
 
 ## Other AI tools / sessions — candidate must reconcile
 
@@ -130,4 +131,4 @@ These fragments are not a substitute for the original message history and are no
 
 ## Completeness and submission note
 
-This is a consolidated record of the prompt text and message fragments presently available to the project record. **It is not an exhaustive prompt history.** The candidate must compare it with the complete earlier ChatGPT conversation(s), inspect any prompts supplied as text/file attachments, and review every other AI tool/session used. Add the missing prompts verbatim and preserve the exact tool/model names. Do not claim the history is complete until that reconciliation is finished.
+This is a consolidated record of the YottaFlex prompt text and messages presently available from the project record, including the Library source cross-check. **It is still not an exhaustive prompt history.** The complete original YottaFlex ChatGPT transcript is not available in the accessible file record, and use of other AI tools/models has not been confirmed. The candidate must inspect the complete original YottaFlex conversation and every other AI tool/session used, then add any missing prompts verbatim and preserve exact tool/model names. Do not claim the history is complete until that reconciliation is finished.
