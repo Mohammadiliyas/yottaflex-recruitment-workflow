@@ -1,141 +1,101 @@
-# AI prompt history
+# AI Prompt and Tool-Use Record
 
-**Project:** YottaFlex recruitment workflow and synthetic-data generator  
+**Project:** YottaFlex Recruitment Workflow and Synthetic Data Generator  
+**AI assistant:** ChatGPT (GPT-6)  
+**Other AI tools:** None, as confirmed by the candidate on 31 October 2026  
 **Last updated:** 31 October 2026  
-**Status:** Known prompt record; **not certified complete**
+**Record status:** Consolidated project-specific record; historical completeness not independently certified
 
-The YottaFlex FAQ requests the prompts submitted to every AI tool. This file preserves the assignment/build prompt text and the user messages visible in the project-publication conversation. It does not provide access to every message in older conversations or to sessions in other AI products. Do not describe this log as exhaustive until you compare it against the original chats and every AI tool you used.
+## 1. Purpose and scope
 
-## AI tools and connected services identified
+This document records the AI instructions and tool interactions used to plan, implement, troubleshoot, publish and demonstrate the YottaFlex recruitment-workflow project. It is intended for reviewer transparency and to support a technical walkthrough.
 
-- **ChatGPT (GPT-6):** extensive project planning, implementation, debugging, documentation and submission-preparation assistance.
-- **GitHub connector:** repository inspection and file publication/updates.
-- **Render connector:** dashboard deployment.
+The record focuses on project-related instructions. Greetings, acknowledgements, personal conversation, learning-quiz answers and submission-form text are not included because they did not instruct the AI to develop or modify the project.
 
-The candidate confirmed on 31 October 2026 that ChatGPT was the only AI tool used for this assignment. No prompts to other AI tools need to be added. GitHub and Render connectors were used as connected services and are recorded separately; they are not being represented as additional generative-AI tools.
+## 2. Tools and services used
 
-## ChatGPT — GPT-6 — 30 October 2026
+| Tool or service | Purpose |
+|---|---|
+| ChatGPT (GPT-6) | Requirements interpretation, architecture, code generation and refinement, debugging, validation support, documentation and submission preparation |
+| GitHub connector | Repository inspection and publication or updating of source code, data artifacts and documentation |
+| Render connector | Creation and deployment of the read-only Flask dashboard |
 
-### Prompt 1 — assignment/build specification
+The candidate confirmed that ChatGPT was the only AI tool used. GitHub and Render are recorded as connected services used through ChatGPT, not as separate generative-AI models.
 
-The following is the assignment/build specification preserved in the project record. Markdown/line wrapping has been normalized; the wording is retained as recorded.
+## 3. Primary project brief
 
-> ## Problem statement
->
-> Read it carefully. Your build should cover every point below.
->
-> Business Context / Problem Track requisitions, candidate stages, structured evaluation, interviewer calendars and offer approvals. Objective and Scope Build a working solution for this end-to-end workflow: Track requisitions, candidate stages, structured evaluation, interviewer calendars and offer approvals. The solution should expose key decisions and exceptions, preserve traceability, and produce measurable outputs. Medium complexity means multiple related entities, conditional rules, at least one exception path and meaningful evaluation metrics. Primary Actors / Systems Employee/candidate, manager, HR partner, IT/operations partner and system administrator
->
-> Business Workflow and Rules
-> 1. Generate/reference master data first: Requisition, HiringManager, Candidate, Application, SkillRequirement.
-> 2. Generate dependent transaction/event records using valid parent IDs.
-> 3. Apply business logic: Create approved requisitions and role criteria; generate synthetic candidate profiles and applications; define stage transition rules; generate interviewer calendars; schedule panels without conflicts; collect rubric-based scorecards; create offers within approved compensation bands.
-> 4. Persist state changes as explicit records/events where relevant; do not overwrite history.
-> 5. Generate outcomes and ground-truth labels from documented rules, not independent random assignment.
->
-> Entities and Relationships
-> Core entities: Requisition, HiringManager, Candidate, Application, SkillRequirement, InterviewPanel, Availability, Interview, Scorecard, Offer, Approval. Define a primary key for every entity and foreign keys for every relationship. Document cardinality (1:1, 1:N, N:M), optional relationships, effective dates and lifecycle states. Use bridge tables for many-to-many relationships; retain event history for state changes; validate all joins. For deliberate anomaly cases, keep an issue_type/ground_truth label rather than silently corrupting unrelated rows.
->
-> ID / Nomenclature Conventions
-> REQ-2026-000001; CAND-000001; APP-<candidate-id>-<req-id>; INT-2026-000001; SCORE-<interview-id>-<reviewer-id>; OFF-2026-000001. Keep counters zero-padded, IDs immutable, and referenced IDs exactly consistent across files.
->
-> Synthetic Data Generation Instructions (Granular)
-> Step 1 — Write a data dictionary for: Requisition, HiringManager, Candidate, Application, SkillRequirement, InterviewPanel, Availability, Interview, Scorecard, Offer, Approval. For each field specify type, required/optional, allowed values, units, uniqueness and validation rule.
-> Step 2 — Create parent/master tables first, then child and event tables. Apply this domain-specific generation logic: Create approved requisitions and role criteria; generate synthetic candidate profiles and applications; define stage transition rules; generate interviewer calendars; schedule panels without conflicts; collect rubric-based scorecards; create offers within approved compensation bands.
-> Step 3 — Apply deterministic IDs and naming: REQ-2026-000001; CAND-000001; APP-<candidate-id>-<req-id>; INT-2026-000001; SCORE-<interview-id>-<reviewer-id>; OFF-2026-000001. Keep counters zero-padded, IDs immutable, and referenced IDs exactly consistent across files.
-> Step 4 — Generate the baseline volume: Generate 200 requisitions, 5,000 candidates, 8,000 applications and 2,000 interviews. Include withdrawals, rescheduling, conflicting interviewers and incomplete scorecards. Use a fixed seed (e.g. 20261022) and parameterize scale so starter and full datasets use the same generator.
-> Step 5 — Generate valid baseline records first, then inject labelled edge cases: Candidate moves forward without required review; interviewer double-booked; offer exceeds band; withdrawn candidate remains scheduled; evaluation includes irrelevant criteria.
-> Step 6 — Calculate derived values (totals, balances, scores, statuses and dates) from source records rather than generating them independently.
-> Step 7 — Produce a separate ground_truth.csv/json for known anomalies, expected decisions or labels; never leak it into input features.
-> Step 8 — Run validation: primary-key uniqueness, foreign-key integrity, allowed enums, date ordering, arithmetic reconciliation, lifecycle transitions and duplicate checks.
-> Step 9 — Export CSV/JSON/SQL seed data plus README, schema/data dictionary, generator command, fixed seed, source manifest and validation summary.
-> Step 10 — Regenerate twice with the same seed and compare row counts/checksums to demonstrate reproducibility.
->
-> Suggested Volume and Coverage Generate 200 requisitions, 5,000 candidates, 8,000 applications and 2,000 interviews. Include withdrawals, rescheduling, conflicting interviewers and incomplete scorecards.
->
-> Required Edge Cases / Negative Scenarios Candidate moves forward without required review; interviewer double-booked; offer exceeds band; withdrawn candidate remains scheduled; evaluation includes irrelevant criteria.
->
-> Validation Rules / Acceptance Criteria Scheduling conflicts are prevented; stage gates are enforced; scorecards are structured; offer approvals and history are auditable.
->
-> Evaluation Focus for Generated Data Review: (a) realistic distributions and meaningful variation; (b) consistent IDs and valid joins; (c) dependency/lifecycle consistency across entities; (d) correct derived values and reconciliation; (e) normal, boundary, failure and exception coverage; (f) separate ground truth; (g) fixed-seed reproducibility, documentation and lawful provenance.
->
-> Public Data Guidance / Lawful Use External data is optional. If used, record source URL, dataset/version, retrieval date, license/terms, attribution, transformations and fields discarded. Use only data you are legally permitted to access and redistribute; do not bypass access controls or collect confidential/personal information. If licensing or suitability is unclear, use synthetic data and cite public reference data only for schema inspiration.
->
-> **Before you submit, make sure you have**
-> - Pushed your code to a public GitHub repository
-> - Added a README explaining how to run it
-> - Included any tests the problem asks for
+### 3.1 Original assignment and implementation requirements
 
-### Prompt 2 — assignment reference documents
+The project brief instructed the AI assistant to create a working recruitment workflow solution covering requisitions, candidate stages, structured evaluations, interviewer calendars and offer approvals. It specified the following requirements:
 
-The candidate supplied the following source documents in the project conversation for review:
+- Model the core entities: Requisition, HiringManager, Candidate, Application, SkillRequirement, InterviewPanel, Availability, Interview, Scorecard, Offer and Approval.
+- Generate master data before dependent records and preserve valid primary-key/foreign-key relationships.
+- Use deterministic, immutable IDs and zero-padded identifiers.
+- Generate baseline volumes of 200 requisitions, 5,000 candidates, 8,000 applications and 2,000 interviews.
+- Generate normal workflow records first, then introduce labelled exception scenarios such as missing review evidence, interviewer conflicts, out-of-band offers, withdrawn candidates remaining scheduled and irrelevant evaluation criteria.
+- Derive outcomes and metrics from source records rather than assigning them independently at random.
+- Preserve application event history and retain original interview records when rescheduling.
+- Export CSV, JSON, SQL and SQLite data with documentation, a data dictionary, source manifest, validation summary and checksums.
+- Validate primary-key uniqueness, foreign-key integrity, lifecycle transitions, date ordering, calculations, duplicate records and exception labels.
+- Use a fixed random seed and demonstrate reproducibility by regenerating the data and comparing outputs.
+- Keep ground-truth anomaly labels separate from operational input data.
+- Publish the source code in a public GitHub repository and provide clear setup and test instructions.
+
+The original assignment brief and the candidate's submitted assignment documents are the authoritative sources for the requirements. The detailed entity definitions, volume targets and acceptance criteria are also reflected in the repository's README, data dictionary and design documentation.
+
+### 3.2 Assignment documents supplied to ChatGPT
+
+The candidate supplied these documents as project context:
 
 - `YottaFlex AI Candidate Project Submission Guidelines.pdf`
 - `YottaFlex AI Candidate Project-FAQ.pdf`
 
-These are attachments/context supplied to ChatGPT, not separately typed prompts.
+They were used to interpret the 72-hour submission window, public-repository requirement, AI transparency, prompt-history requirement and individual-work expectations. These were file attachments, not separately typed prompts.
 
-### Prompt 3 — GitHub connector invocation
+## 4. Project-specific follow-up instructions
 
-`[@GitHub](plugin://github@openai-curated-remote)`
+The following are the project-related user instructions that can be recovered from the publication and demo conversation. Wording is preserved where the original message is available.
 
-The connector was invoked to use the connected GitHub capability for the project.
+| No. | Recorded instruction | Workstream |
+|---:|---|---|
+| 1 | `[@GitHub](plugin://github@openai-curated-remote)` | Request to use the connected GitHub capability |
+| 2 | `[$github](app://connector_76869538009648d5b282a4bb21c3d157)` | Repository inspection/publication through GitHub |
+| 3 | `unable to download zip packages` | Troubleshooting project archive retrieval |
+| 4 | `unable to find or open data exports` | Troubleshooting access to generated data exports |
+| 5 | `unable to download` | Further archive retrieval troubleshooting |
+| 6 | `zip not found` | Troubleshooting missing local archive |
+| 7 | `give the full code` | Request for the complete project source |
+| 8 | `[$github](app://connector_76869538009648d5b282a4bb21c3d157) run` | GitHub-connected repository operation |
+| 9 | `i wan to see the output and live demo` | Request to present project output and deploy a browser-accessible demonstration |
+| 10 | `so its all set to submit` | Request for submission-readiness review |
 
-## Follow-up prompts — publication, deployment and submission-preparation conversation — 31 October 2026
+The connector invocations above are retained as recorded. They are not represented as natural-language prompts.
 
-The following exact user messages are visible in the project-publication conversation. Connector invocations are recorded as invocations rather than translated into natural-language instructions.
+## 5. AI-assisted implementation areas
 
-1. `[$github](app://connector_76869538009648d5b282a4bb21c3d157)`
-2. `unable to download zip packages`
-3. `unable to find or open data exports`
-4. `unable to download`
-5. `[$github](app://connector_76869538009648d5b282a4bb21c3d157)`
-6. `okay`
-7. `zip not found`
-8. `give the full code`
-9. `[$github](app://connector_76869538009648d5b282a4bb21c3d157) run`
-10. `i wan to see the output and live demo`
-11. `so its all set to submit`
+ChatGPT assistance was extensive and covered the following project components:
 
-The conversation also included the following one-time submission form text, supplied by the candidate:
+| Component | AI-assisted activity |
+|---|---|
+| `src/generator.py` | SQLite schema, deterministic synthetic-data generation, relationships, exports and generation logic |
+| `src/workflow.py` | Stage transitions, interview scheduling, scorecards/metrics and offer/approval rules |
+| `src/validate.py` | Data-integrity and labelled-exception validation |
+| `tests/test_workflow.py` | Unit-test drafting and refinement |
+| `scripts/` | Data summary and reproducibility utilities |
+| `docs/` | Design notes, data dictionary, validation results, README and disclosure documentation |
+| `app.py` | Read-only Flask dashboard for overview metrics, applications, requisitions and anomalies |
+| `requirements.txt` and Render configuration | Dashboard runtime dependencies and deployment support |
 
-> Submit your work
->
-> You can submit once, so check everything before you do.
->
-> GitHub repository URL*
->
-> The repository must be public so we can review it.
->
-> Your submission is final once sent.
+AI assistance also supported debugging issues involving dates, scheduling, data volume, scorecard normalization and validation. The candidate should distinguish AI-generated or AI-assisted work from any independent work they personally completed.
 
-The latest follow-up request concerning these disclosure files was:
+## 6. Prompt-capture limitations
 
-12. `finish them`
-13. `no` (response to the candidate-review/testing questions; the candidate did not confirm personal review, independent code changes or tests personally run)
-14. `we will do it tomorrow good night.`
-15. `lets goo`
-16. `no` (confirmation that ChatGPT was the only AI tool used for the YottaFlex assignment)
-17. `My answer to Lesson 1: A requisition is option b. Explain whether you understand it correctly and continue.`
-18. `so should i submit it`
-19. `we just got left 6 hours`
-20. `My answer to Lesson 2 is option b. Check my answer and continue to Lesson 3.`
-21. `1hr to left i dont know how to cross check`
+This is a consolidated record of the project-specific instructions recoverable from the currently accessible project files and conversation context. It is more focused than a raw chat transcript and excludes non-project exchanges.
 
-## Library source cross-check — 31 October 2026
+The complete original YottaFlex ChatGPT conversation is not available in the accessible file record, so this document **must not be described as a verified verbatim transcript of every prompt**. Before claiming exhaustive prompt history, the candidate should compare this record with the complete original YottaFlex conversation and add any missing project-development or project-operation prompts. The candidate confirmed that no other AI tool was used.
 
-- A Library file named `ai_prompt_history.md` was found. Its recorded initial YottaFlex assignment/build brief corroborates the original brief reproduced as Prompt 1; it is a duplicate record of that brief, not a distinct additional prompt.
-- Two files named `Pasted text.txt` and `Pasted text(1).txt` were inspected. They contain an ONDC multi-vendor e-commerce project blueprint, not the YottaFlex recruitment-workflow assignment, so they are excluded from this YottaFlex prompt history.
-- Two earlier message fragments visible in a separate account-level conversation summary (`make a complete app using this information using all the` and `yeah do it`) belong to that unrelated ONDC project conversation, not this YottaFlex assignment; they are therefore not listed as YottaFlex prompts.
+## 7. Ownership and review statement
 
-This cross-check separates the known YottaFlex material from unrelated project prompts. It does not recover the complete original YottaFlex chat transcript.
+AI assistance was extensive. This prompt record is not evidence that the candidate independently authored, reviewed or tested the generated code. The separate `docs/AI_DISCLOSURE.md` records the candidate's confirmation that no personal code review, independent code changes or personally executed tests are being claimed, and documents the project's known implementation limitations.
 
-## Other AI tools / sessions — candidate must reconcile
-
-| Date/time + timezone | Tool and exact model | Exact prompt(s) | Work/files affected |
-|---|---|---|---|
-| None — candidate confirmed ChatGPT was the only AI tool used. | — | — | — |
-
-## Completeness and submission note
-
-This is a consolidated record of the YottaFlex prompt text and messages presently available from the project record, including the Library source cross-check. **It is still not an exhaustive prompt history.** The candidate has confirmed that no AI tool other than ChatGPT was used. However, the complete original YottaFlex ChatGPT transcript is not available in the accessible file record. The candidate must compare this log with the full original YottaFlex ChatGPT conversation and add any missing user prompts and ChatGPT connector invocations verbatim before claiming the prompt history is exhaustive. Do not claim the history is complete until that reconciliation is finished.
+The candidate should be prepared to explain the data model, generator, stage-gate behavior, scheduling logic, scorecards, approval logic, validation approach, dashboard and known gaps in their own words.
