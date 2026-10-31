@@ -95,11 +95,11 @@ The full-scale repeat was run independently twice and its two generated folders 
 
 The source and export ZIPs were retrieved from the project Library folder and checked against the public GitHub repository. Git blob IDs matched for the tested source files and the full export archive at the time of verification. This ties the following checks to the source and dataset artifacts committed to the repository.
 
-Commands executed in the assistant verification environment:
+The source ZIP was extracted to `/mnt/data/yottaflex-verify/source/yottaflex-recruitment`; the full-volume export ZIP was extracted to `/mnt/data/yottaflex-verify/data/yottaflex-full-data-exports`. Git blob IDs for the five test/source files matched the corresponding files on GitHub `main`, and the export ZIP matched the committed GitHub artifact. Commands executed from that source directory:
 
 ```bash
 python -m unittest discover -s tests -v
-python -m src.validate /path/to/recruitment.db
+python -m src.validate /mnt/data/yottaflex-verify/data/yottaflex-full-data-exports/recruitment.db
 python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
 ```
 
