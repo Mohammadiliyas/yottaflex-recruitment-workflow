@@ -16,15 +16,15 @@
 
 `APPLIED -> SCREENING -> TECHNICAL -> PANEL -> OFFER -> HIRED`
 
-At any non-terminal stage, `WITHDRAWN` or `REJECTED` may be reached. Forward moves are sequential. A required review must be complete before advancing into technical/panel/offer/hired stages. `WITHDRAWN`, `REJECTED` and `HIRED` are terminal.
+At any non-terminal stage, `WITHDRAWN` or `REJECTED` may be reached. Forward moves are sequential. A required review is intended to be complete before advancing into technical/panel/offer/hired stages. **Implementation caveat:** `transition_application()` currently trusts its caller-supplied `required_review_complete` Boolean and does not independently inspect persisted review evidence. `WITHDRAWN`, `REJECTED` and `HIRED` are terminal.
 
 ## Scheduling policy
 
-Each panel has three synthetic interviewers. A proposed time interval must fit all panel members' availability and must not overlap an existing scheduled/completed interview involving any of those interviewers. Different panels may run concurrently when they have no interviewer in common. Intervals are half-open for comparison (`start < other_end` and `end > other_start`); adjacent sessions are allowed. Deliberate anomaly rows carry an issue label and are excluded from normal-operation expectations.
+Each panel has three synthetic interviewers. A proposed time interval must fit all panel members' availability and must not overlap an existing scheduled/completed interview involving any of those interviewers. Different panels may run concurrently when they have no interviewer in common. Intervals are half-open for comparison (`start < other_end` and `end > other_start`); adjacent sessions are allowed. Deliberate anomaly rows carry an issue label and are excluded from normal-operation expectations. **Implementation caveat:** `schedule_interview()` does not currently verify that the selected panel's requisition matches the application requisition; the full-data validator checks generated records, but the runtime helper should add this check.
 
 ## Offer policy
 
-Offer salary must satisfy `requisition.min_salary <= offer.annual_salary <= requisition.max_salary`. An approval cannot approve an out-of-band amount. Such offers are retained only as labelled exception records to exercise the exception path.
+Offer salary must satisfy `requisition.min_salary <= offer.annual_salary <= requisition.max_salary`. An approval cannot approve an out-of-band amount. Such offers are retained only as labelled exception records to exercise the exception path. **Implementation caveat:** `approve_offer()` currently marks the offer `APPROVED` after one approved decision and does not enforce the two distinct role-based approvals described in the intended policy.
 
 ## Metrics
 
