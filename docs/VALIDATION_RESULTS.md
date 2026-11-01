@@ -116,3 +116,23 @@ The small-scale reproducibility check above is a fresh assistant-side run. The e
 The dashboard code (app.py) was not covered by the local unit-test run. Render service logs recorded successful HTTP 200 responses for /, /applications, /requisitions and /anomalies after deployment.
 
 **Attribution:** these commands were run by the AI assistant in its verification environment. They were not run personally by the candidate. This section must not be represented as candidate-executed testing.
+
+## Final repository recheck — 1 November 2026
+
+The source and data archives were freshly retrieved from the project Library and compared against the current public GitHub `main` branch. Git blob IDs matched for `src/generator.py`, `src/workflow.py`, `src/validate.py`, `tests/test_workflow.py`, `scripts/reproducibility_check.py`, and `artifacts/yottaflex-full-data-exports.zip`.
+
+Fresh commands executed against those exact repository-matched files:
+
+```bash
+python -m unittest discover -s tests -v
+python -m src.validate /mnt/data/yottaflex-final-check/data/yottaflex-full-data-exports/recruitment.db
+python scripts/reproducibility_check.py --seed 20261022 --scale 0.02
+```
+
+Fresh results:
+
+- Unit tests: **6 passed**.
+- Full-volume database validation: **pass: true**, seven labelled ground-truth cases, and zero configured unlabelled integrity failures.
+- Small-scale reproducibility smoke test (seed `20261022`, scale `0.02`): **all 35 CSV, JSON, SQL and metadata outputs matched** across the two runs.
+
+Attribution: the checks above were run by the AI assistant on 1 November 2026, not personally by the candidate. The small-scale reproducibility run does not replace the separately recorded prior full-scale repeat-generation result.
